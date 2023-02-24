@@ -3,32 +3,30 @@ import Jogo from "./Jogo";
 import Letras from "./Letras";
 import palavras from "./palavras";
 
-let palavraJogo = []
+let palavraJogo = [];
 
 
 export default function App() {
   const forcas = ["assets/forca0.png", "assets/forca1.png", "assets/forca2.png", "assets/forca3.png", "assets/forca4.png", "assets/forca5.png", "assets/forca6.png",];
 
   const [letrasClicadas, setLetrasClicadas] = useState([]);
-  const [palavraEscolhida, setPalavraEscolhida] = useState("");
   const [erros, setErros] = useState(0);
   const [palavraMostrada, setPalavraMostrada] = useState("");
-  const [seGanhou, setSeGanhou] = useState("jogando")
+  const [seGanhou, setSeGanhou] = useState("jogando");
 
   function inicioJogo() {
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
     palavraJogo = palavras[indiceAleatorio].split("");
-    setPalavraEscolhida(palavraJogo.join(" "));
     setErros(0);
     setLetrasClicadas([]);
     setPalavraMostrada(geraPalavraMostrada());
-    setSeGanhou("jogando")
+    setSeGanhou("jogando");
   }
 
   function geraPalavraMostrada() {
-    let gerado = []
+    let gerado = [];
     for (let i = 0; i < palavraJogo.length; i++) {
-      gerado.push("_")
+      gerado.push("_");
     }
     gerado = gerado.join(" ");
     return gerado;
@@ -46,24 +44,26 @@ export default function App() {
     if (!mostrada.includes("_")) {
       ganhou();
     }
-    setPalavraMostrada(mostrada)
+    setPalavraMostrada(mostrada);
   }
 
 
   function compara(word) {
     if (palavraJogo.includes(word)) {
-      let clicadas = [...letrasClicadas];
+      const clicadas = [...letrasClicadas];
       clicadas.push(word);
       setLetrasClicadas(clicadas);
       atualizaPalavraMostrada(word);
     } else {
-      if (erros < 6) {
-        setErros(erros + 1)
+      const maxForcas = 6;
+      if (erros < maxForcas) {
+        setErros(erros + 1);
       }
-      let clicadas = [...letrasClicadas];
+      const clicadas = [...letrasClicadas];
       clicadas.push(word);
       setLetrasClicadas(clicadas);
-      if (erros === 5) {
+      const MaxErros = 5;
+      if (erros === MaxErros) {
         perdeu();
       }
     }
@@ -72,10 +72,10 @@ export default function App() {
   function perdeu() {
     palavraJogo = palavraJogo.join(" ");
     setPalavraMostrada(palavraJogo);
-    setSeGanhou("não")
+    setSeGanhou("não");
   }
   function ganhou() {
-    setSeGanhou("sim")
+    setSeGanhou("sim");
   }
 
   return (
