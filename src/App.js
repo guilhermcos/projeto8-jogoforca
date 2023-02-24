@@ -31,6 +31,7 @@ export default function App() {
     gerado = gerado.join(" ");
     return gerado;
   }
+  
 
   function atualizaPalavraMostrada(word) {
     let mostrada = palavraMostrada.split(" ");
