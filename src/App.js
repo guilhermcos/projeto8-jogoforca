@@ -13,6 +13,7 @@ export default function App() {
   const [palavraEscolhida, setPalavraEscolhida] = useState("");
   const [erros, setErros] = useState(0);
   const [palavraMostrada, setPalavraMostrada] = useState("");
+  const [seGanhou, setSeGanhou] = useState("jogando")
 
   function inicioJogo() {
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
@@ -21,6 +22,7 @@ export default function App() {
     setErros(0);
     setLetrasClicadas([]);
     setPalavraMostrada(geraPalavraMostrada());
+    setSeGanhou("jogando")
   }
 
   function geraPalavraMostrada() {
@@ -31,16 +33,19 @@ export default function App() {
     gerado = gerado.join(" ");
     return gerado;
   }
-  
+
 
   function atualizaPalavraMostrada(word) {
     let mostrada = palavraMostrada.split(" ");
     for (let i = 0; i < mostrada.length; i++) {
-      if (palavraJogo[i] === word){
+      if (palavraJogo[i] === word) {
         mostrada[i] = word;
       }
     }
     mostrada = mostrada.join(" ");
+    if (!mostrada.includes("_")) {
+      ganhou();
+    }
     setPalavraMostrada(mostrada)
   }
 
@@ -58,13 +63,25 @@ export default function App() {
       let clicadas = [...letrasClicadas];
       clicadas.push(word);
       setLetrasClicadas(clicadas);
+      if (erros === 5) {
+        perdeu();
+      }
     }
+  }
+
+  function perdeu() {
+    palavraJogo = palavraJogo.join(" ");
+    setPalavraMostrada(palavraJogo);
+    setSeGanhou("não")
+  }
+  function ganhou() {
+    setSeGanhou("sim")
   }
 
   return (
     <div className="App">
-      <Jogo forca={forcas[erros]} inicioJogo={inicioJogo} palavraMostrada={palavraMostrada}></Jogo>
-      <Letras letrasClicadas={letrasClicadas} palavraJogo={palavraJogo} compara={compara}></Letras>
+      <Jogo forca={forcas[erros]} inicioJogo={inicioJogo} palavraMostrada={palavraMostrada} seGanhou={seGanhou}></Jogo>
+      <Letras letrasClicadas={letrasClicadas} palavraJogo={palavraJogo} compara={compara} seGanhou={seGanhou}></Letras>
     </div>
   );
 }
