@@ -11,7 +11,7 @@ export default function Jogo(props) {
       <button onClick={props.inicioJogo} className="escolher-palavra">
         <p>Escolher Palavra</p>
       </button>
-      <h2>{props.palavraEscolhida}</h2>
+      <h2>{props.palavraMostrada}</h2>
     </div>
   )
 }
