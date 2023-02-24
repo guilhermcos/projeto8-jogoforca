@@ -43,7 +43,7 @@ body {
 
 .jogo h2 {
     position: absolute;
-    font-family: Noto Sans;
+    font-family: Noto Sans, sans-serif;
     font-size: 50px;
     font-weight: 700;
     line-height: 68px;
@@ -79,7 +79,7 @@ body {
 }
 
 .letras p {
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     font-size: 16px;
     font-weight: 700;
     line-height: 19px;
